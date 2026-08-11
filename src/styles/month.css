@@ -1,0 +1,221 @@
+@import './components.css';
+
+.month-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.summary-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 100px;
+}
+
+.summary-label {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.summary-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.summary-value.income {
+  color: var(--income);
+}
+
+.summary-value.expense {
+  color: var(--expense);
+}
+
+.quick-add-bar {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.quick-add-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.quick-add-btn.income {
+  background: var(--income);
+  color: var(--bg);
+}
+
+.quick-add-btn.expense {
+  background: var(--expense);
+  color: var(--bg);
+}
+
+.category-budget-panel {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  background: var(--surface);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.category-budget-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.category-budget-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.category-budget-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  gap: 12px;
+  min-width: 0;
+}
+
+.category-budget-info span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.category-budget-amounts.tone-warning {
+  color: var(--warning);
+}
+
+.category-budget-amounts.tone-over {
+  color: var(--over-budget);
+  font-weight: 600;
+}
+
+.transaction-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+.transaction-column {
+  min-width: 0;
+}
+
+.transaction-column h3 {
+  margin-bottom: 8px;
+}
+
+.transaction-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.transaction-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto auto auto;
+  align-items: start;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.transaction-icon {
+  font-size: 18px;
+}
+
+.transaction-desc {
+  font-weight: 500;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.3;
+}
+
+.recurring-badge {
+  margin-left: 6px;
+  opacity: 0.6;
+}
+
+.transaction-category,
+.transaction-date {
+  font-size: 13px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.transaction-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.transaction-actions button {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.budget-settings {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-dialog p {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+  .transaction-columns {
+    grid-template-columns: 1fr;
+  }
+  .transaction-row {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'icon desc amount'
+      'icon meta actions';
+  }
+  .transaction-category,
+  .transaction-date {
+    display: none;
+  }
+}

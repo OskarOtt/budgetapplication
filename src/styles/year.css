@@ -1,0 +1,85 @@
+@import './components.css';
+
+.year-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.year-bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 200px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.year-bar-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.year-bar-bars {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  width: 100%;
+}
+
+.year-bar {
+  flex: 1;
+  min-height: 1px;
+  border-radius: 2px 2px 0 0;
+}
+
+.year-bar.income {
+  background: var(--income);
+}
+
+.year-bar.expense {
+  background: var(--expense);
+}
+
+.year-bar-label {
+  font-size: 11px;
+  margin-top: 6px;
+  opacity: 0.7;
+}
+
+.year-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.year-table th,
+.year-table td {
+  padding: 8px 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--border);
+}
+
+.year-table th:first-child,
+.year-table td:first-child {
+  text-align: left;
+}
+
+.year-table th {
+  font-size: 12px;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.year-table td.income {
+  color: var(--income);
+}
+
+.year-table td.expense {
+  color: var(--expense);
+}
