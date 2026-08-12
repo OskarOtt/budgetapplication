@@ -1,4 +1,4 @@
-/* Shared components: Modal, ProgressBar, forms, buttons — used across Month/Year/Savings views. */
+/* Shared components: Modal, ShareBar, forms, buttons — used across Budget/Year views. */
 
 .modal {
   border: 1px solid var(--border);
@@ -53,32 +53,6 @@
   display: flex;
 }
 
-.kind-toggle {
-  flex-direction: row;
-  gap: 8px;
-}
-
-.kind-toggle button {
-  flex: 1;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
-}
-
-.kind-toggle button.active.income {
-  background: var(--income-bg);
-  border-color: var(--income);
-  color: var(--income);
-}
-
-.kind-toggle button.active.expense {
-  background: var(--expense-bg);
-  border-color: var(--expense);
-  color: var(--expense);
-}
-
 .form-actions {
   display: flex;
   justify-content: flex-end;
@@ -114,27 +88,26 @@ button.primary {
   border-radius: 6px;
 }
 
-.progress-bar {
+.share-bar {
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 6px;
+  border-radius: 3px;
   background: var(--border);
   overflow: hidden;
 }
 
-.progress-bar-fill {
+.share-bar-fill {
   height: 100%;
-  border-radius: 4px;
-  background: var(--accent);
+  border-radius: 3px;
   transition: width 0.2s ease;
 }
 
-.progress-bar[data-tone='warning'] .progress-bar-fill {
-  background: var(--warning);
+.share-bar-fill.income {
+  background: var(--income);
 }
 
-.progress-bar[data-tone='over'] .progress-bar-fill {
-  background: var(--over-budget);
+.share-bar-fill.expense {
+  background: var(--expense);
 }
 
 .currency-amount.income {
@@ -145,45 +118,6 @@ button.primary {
 .currency-amount.expense {
   color: var(--expense);
   font-weight: 600;
-}
-
-.period-nav {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.period-nav h2 {
-  margin: 0;
-  min-width: 160px;
-}
-
-.period-nav button {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 12px;
-  color: var(--text);
-}
-
-.today-btn {
-  margin-left: auto;
-}
-
-.panel-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.panel-header button {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 12px;
-  color: var(--text);
 }
 
 .empty-state {

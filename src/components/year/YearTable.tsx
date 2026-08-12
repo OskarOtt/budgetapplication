@@ -1,27 +1,13 @@
-import type { YearMonthRow } from '../../domain/balances.ts'
+import type { YearSimRow } from '../../domain/balances.ts'
 import { formatCurrency } from '../../utils/currency.ts'
-import { parseMonthKey } from '../../utils/date.ts'
-
-const MONTH_SHORT = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-]
+import { monthLabelsFromNow } from '../../utils/date.ts'
 
 interface YearTableProps {
-  rows: YearMonthRow[]
+  rows: YearSimRow[]
 }
 
 export function YearTable({ rows }: YearTableProps) {
+  const labels = monthLabelsFromNow()
   return (
     <table className="year-table">
       <thead>
@@ -34,18 +20,17 @@ export function YearTable({ rows }: YearTableProps) {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => {
-          const { month } = parseMonthKey(row.monthKey)
-          return (
-            <tr key={row.monthKey}>
-              <td>{MONTH_SHORT[month - 1]}</td>
-              <td className="income">{formatCurrency(row.income)}</td>
-              <td className="expense">{formatCurrency(row.expense)}</td>
-              <td className={row.net >= 0 ? 'income' : 'expense'}>{formatCurrency(row.net)}</td>
-              <td>{formatCurrency(row.endingBalance)}</td>
-            </tr>
-          )
-        })}
+        {rows.map((row) => (
+          <tr key={row.monthIndex}>
+            <td>{labels[row.monthIndex]}</td>
+            <td className="income">{formatCurrency(row.income)}</td>
+            <td className="expense">{formatCurrency(row.expense)}</td>
+            <td className={row.net >= 0 ? 'income' : 'expense'}>{formatCurrency(row.net)}</td>
+            <td className={row.endingBalance >= 0 ? '' : 'expense'}>
+              {formatCurrency(row.endingBalance)}
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   )

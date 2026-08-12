@@ -1,4 +1,4 @@
-import type { Category } from '../types/models.ts'
+import type { BudgetItem, Category } from '../types/models.ts'
 import type { AppState } from '../types/state.ts'
 import { SCHEMA_VERSION } from './storageKeys.ts'
 
@@ -59,13 +59,37 @@ export const DEFAULT_CATEGORIES: Category[] = [
   },
 ]
 
+const DEFAULT_ITEMS: BudgetItem[] = [
+  {
+    id: 'seed-salary',
+    kind: 'income',
+    categoryId: 'cat-salary',
+    description: 'Salary',
+    amount: 35000,
+    dayOfMonth: 25,
+  },
+  {
+    id: 'seed-rent',
+    kind: 'expense',
+    categoryId: 'cat-rent',
+    description: 'Rent',
+    amount: 12000,
+    dayOfMonth: 1,
+  },
+  {
+    id: 'seed-groceries',
+    kind: 'expense',
+    categoryId: 'cat-groceries',
+    description: 'Groceries',
+    amount: 4000,
+  },
+]
+
 export function seedInitialState(): AppState {
   return {
     version: SCHEMA_VERSION,
     categories: DEFAULT_CATEGORIES,
-    transactions: [],
-    recurringTemplates: [],
-    categoryBudgets: [],
-    savingsGoals: [],
+    items: DEFAULT_ITEMS,
+    startingBalance: 0,
   }
 }
