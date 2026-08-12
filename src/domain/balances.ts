@@ -1,5 +1,4 @@
-import type { Transaction } from '../types/models.ts'
-import { monthsInYear, toMonthKey } from '../utils/date.ts'
+import type { BudgetItem } from '../types/models.ts'
 
 export interface MonthTotals {
   income: number
@@ -7,44 +6,39 @@ export interface MonthTotals {
   net: number
 }
 
-export function computeMonthTotals(transactions: Transaction[], monthKey: string): MonthTotals {
+export function computeMonthTotals(items: BudgetItem[]): MonthTotals {
   let income = 0
   let expense = 0
-  for (const t of transactions) {
-    if (toMonthKey(t.date) !== monthKey) continue
-    if (t.kind === 'income') income += t.amount
-    else expense += t.amount
+  for (const item of items) {
+    if (item.kind === 'income') income += item.amount
+    else expense += item.amount
   }
   return { income, expense, net: income - expense }
 }
 
-/** Sum of net totals for all months strictly before monthKey (i.e. the running balance carried in). */
-export function computeStartingBalance(transactions: Transaction[], monthKey: string): number {
-  let balance = 0
-  for (const t of transactions) {
-    const tMonth = toMonthKey(t.date)
-    if (tMonth >= monthKey) continue
-    balance += t.kind === 'income' ? t.amount : -t.amount
-  }
-  return balance
-}
-
-export interface YearMonthRow extends MonthTotals {
-  monthKey: string
+export interface YearSimRow extends MonthTotals {
+  monthIndex: number // 0-11
   startingBalance: number
   endingBalance: number
 }
 
-export function computeYearTotals(transactions: Transaction[], year: number): YearMonthRow[] {
-  const months = monthsInYear(year)
-  return months.map((monthKey) => {
-    const totals = computeMonthTotals(transactions, monthKey)
-    const startingBalance = computeStartingBalance(transactions, monthKey)
-    return {
-      monthKey,
+/**
+ * Projects the single monthly budget forward 12 times, carrying a running balance.
+ * Every month is identical (income/expense totals), only the cumulative balance changes.
+ */
+export function computeYearSimulation(items: BudgetItem[], startingBalance: number): YearSimRow[] {
+  const totals = computeMonthTotals(items)
+  const rows: YearSimRow[] = []
+  let balance = startingBalance
+  for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+    const rowStartingBalance = balance
+    balance += totals.net
+    rows.push({
+      monthIndex,
       ...totals,
-      startingBalance,
-      endingBalance: startingBalance + totals.net,
-    }
-  })
+      startingBalance: rowStartingBalance,
+      endingBalance: balance,
+    })
+  }
+  return rows
 }

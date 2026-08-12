@@ -9,21 +9,20 @@ export function migrate(raw: unknown): AppState {
   }
   const candidate = raw as Partial<AppState>
   if (
+    (candidate as { version?: number }).version !== SCHEMA_VERSION ||
     !Array.isArray(candidate.categories) ||
-    !Array.isArray(candidate.transactions) ||
-    !Array.isArray(candidate.recurringTemplates) ||
-    !Array.isArray(candidate.categoryBudgets) ||
-    !Array.isArray(candidate.savingsGoals)
+    !Array.isArray(candidate.items) ||
+    typeof candidate.startingBalance !== 'number'
   ) {
+    // Old (pre-v2) shape or anything unrecognized — no sane 1:1 migration from calendar
+    // transactions to a single template month, so reset to seed data.
     return seedInitialState()
   }
   return {
     version: SCHEMA_VERSION,
     categories: candidate.categories,
-    transactions: candidate.transactions,
-    recurringTemplates: candidate.recurringTemplates,
-    categoryBudgets: candidate.categoryBudgets,
-    savingsGoals: candidate.savingsGoals,
+    items: candidate.items,
+    startingBalance: candidate.startingBalance,
   }
 }
 

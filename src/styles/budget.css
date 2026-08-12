@@ -1,0 +1,233 @@
+@import './components.css';
+
+.budget-view {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.budget-view-heading h2 {
+  margin-bottom: 2px;
+}
+
+.budget-view-subtitle {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* --- Summary hero --- */
+
+.budget-summary-hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  width: 100%;
+  box-sizing: border-box;
+  background: linear-gradient(135deg, var(--income-bg), var(--surface) 60%);
+}
+
+.budget-summary-hero.negative {
+  background: linear-gradient(135deg, var(--expense-bg), var(--surface) 60%);
+}
+
+.budget-summary-hero-net {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.budget-summary-hero-label {
+  font-size: 13px;
+  opacity: 0.75;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.budget-summary-hero-value {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--income);
+  line-height: 1.1;
+}
+
+.budget-summary-hero.negative .budget-summary-hero-value {
+  color: var(--expense);
+}
+
+.budget-summary-hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-left: auto;
+}
+
+.budget-summary-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* --- Panels (Income / Expenses split) --- */
+
+.budget-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+}
+
+.budget-panel {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 4px solid var(--income);
+}
+
+.budget-panel.expense {
+  border-top-color: var(--expense);
+}
+
+.budget-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.budget-panel-header h3 {
+  margin: 0;
+}
+
+.budget-panel-total {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.add-btn {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+  color: var(--bg);
+}
+
+.add-btn.income {
+  background: var(--income);
+}
+
+.add-btn.expense {
+  background: var(--expense);
+}
+
+/* --- Category groups --- */
+
+.item-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.item-group {
+  min-width: 0;
+}
+
+.item-group-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.item-group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.item-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+.item-icon {
+  font-size: 16px;
+}
+
+.item-desc {
+  font-weight: 500;
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.item-day {
+  display: block;
+  font-size: 12px;
+  opacity: 0.6;
+  font-weight: 400;
+}
+
+.item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.item-actions button {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.delete-dialog p {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 800px) {
+  .budget-panels {
+    grid-template-columns: 1fr;
+  }
+  .budget-summary-hero-stats {
+    margin-left: 0;
+    gap: 24px;
+  }
+}

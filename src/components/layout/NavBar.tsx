@@ -1,4 +1,4 @@
-export type ViewName = 'month' | 'year' | 'goals'
+export type ViewName = 'budget' | 'year'
 
 interface NavBarProps {
   view: ViewName
@@ -6,9 +6,8 @@ interface NavBarProps {
 }
 
 const TABS: { id: ViewName; label: string }[] = [
-  { id: 'month', label: 'Month' },
-  { id: 'year', label: 'Year' },
-  { id: 'goals', label: 'Goals' },
+  { id: 'budget', label: 'Monthly Budget' },
+  { id: 'year', label: 'Year Simulation' },
 ]
 
 export function NavBar({ view, onChange }: NavBarProps) {

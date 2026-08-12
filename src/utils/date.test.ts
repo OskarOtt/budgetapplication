@@ -1,44 +1,32 @@
 import { describe, expect, it } from 'vitest'
-import { addMonths, clampDayOfMonth, daysInMonth, formatDate, formatMonthLabel, toMonthKey } from './date.ts'
+import { monthLabelsFromNow, ordinal } from './date.ts'
 
-describe('toMonthKey', () => {
-  it('extracts YYYY-MM from an ISO date', () => {
-    expect(toMonthKey('2024-03-15')).toBe('2024-03')
+describe('ordinal', () => {
+  it('formats common suffixes', () => {
+    expect(ordinal(1)).toBe('1st')
+    expect(ordinal(2)).toBe('2nd')
+    expect(ordinal(3)).toBe('3rd')
+    expect(ordinal(4)).toBe('4th')
+  })
+  it('handles the 11-13 special case', () => {
+    expect(ordinal(11)).toBe('11th')
+    expect(ordinal(12)).toBe('12th')
+    expect(ordinal(13)).toBe('13th')
+  })
+  it('handles larger numbers', () => {
+    expect(ordinal(21)).toBe('21st')
+    expect(ordinal(22)).toBe('22nd')
+    expect(ordinal(28)).toBe('28th')
   })
 })
 
-describe('addMonths', () => {
-  it('adds months within the same year', () => {
-    expect(addMonths('2024-01', 2)).toBe('2024-03')
-  })
-  it('rolls over into the next year', () => {
-    expect(addMonths('2024-11', 3)).toBe('2025-02')
-  })
-  it('rolls back into the previous year', () => {
-    expect(addMonths('2024-01', -2)).toBe('2023-11')
-  })
-})
-
-describe('daysInMonth / clampDayOfMonth', () => {
-  it('returns 29 for February in a leap year', () => {
-    expect(daysInMonth('2024-02')).toBe(29)
-  })
-  it('returns 28 for February in a non-leap year', () => {
-    expect(daysInMonth('2023-02')).toBe(28)
-  })
-  it('clamps a day beyond the month length', () => {
-    expect(clampDayOfMonth('2023-02', 31)).toBe(28)
-  })
-})
-
-describe('formatDate', () => {
-  it('converts ISO YYYY-MM-DD to DD-MM-YYYY', () => {
-    expect(formatDate('2024-03-05')).toBe('05-03-2024')
-  })
-})
-
-describe('formatMonthLabel', () => {
-  it('formats a month key as a readable label', () => {
-    expect(formatMonthLabel('2024-01')).toBe('January 2024')
+describe('monthLabelsFromNow', () => {
+  it('returns 12 labels starting from the current month', () => {
+    const labels = monthLabelsFromNow()
+    expect(labels).toHaveLength(12)
+    const expectedFirst = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][
+      new Date().getMonth()
+    ]
+    expect(labels[0]).toBe(expectedFirst)
   })
 })
